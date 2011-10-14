@@ -3,13 +3,21 @@
     {
       "source" : ["./afile.txt"],
       "target" : "compressed.tar"
-    }  
+    },
+    {
+      "source" : ["./afile.txt","./afile2.txt"],
+      "target" : "compressed2.tar"
+    }      
   ],
   
   "unarchive" : [
     {
       "source" : "./compressed.tar",
-      "target": ""
+      "targetPath": "./"
+    },
+    {
+      "source" : "./compressed.tar"
     }  
+    
   ]
 }

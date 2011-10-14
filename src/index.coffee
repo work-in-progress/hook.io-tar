@@ -27,50 +27,45 @@ Tar = exports.Tar = (options) ->
     for item in (self.unarchive || [])
       self.emit "tar::unarchive",
         source : item.source
-        target : item.target
+        targetPath : item.targetPath
     
 util.inherits Tar, Hook
 
 Tar.prototype._runCommand = (cmd,args,eventName,data) ->
-  fd = fs.openSync data.target, "w", 0644
 
   zip = spawn(cmd,args)
 
   zip.stdout.on "data", (data) =>
-    fs.writeSync fd, data, 0, data.length, null
+    # NOTHING
 
   zip.stderr.on "data", (data) =>
     console.log "ERROR: #{data}"
   
   zip.on "exit", (code) =>
-    fs.closeSync fd
-
-    #console.log "EXIT #{code}"
     if code != 0  
-      try
-        fs.unlinkSync data.target  # cleanup
-      catch ignore
+      data.code = code
       
-      @emit "tar::error", 
-        source: data.source
-        target: data.target
-        code: code
+      @emit "tar::error", data
     else    
-      @emit eventName, 
-        source: data.source
-        target: data.target
+      @emit eventName, data
 
 Tar.prototype._archive = (data) ->
-  console.log "Archiving #{data.source} to #{data.target}".cyan
+  console.log "Archiving #{data.source.length} files to #{data.target}".cyan
+
+  params = [ "-cf", data.target ]
+  params.push fileName for fileName in data.source
 
   data.target = path.normalize data.target
-  @_runCommand "tar",[ "-c", data.source ],"tar::archive-complete",data
+  @_runCommand "tar",params,"tar::archive-complete",data
 
       
 Tar.prototype._unarchive = (data) ->
   console.log "Unarchiving for #{data.source}".cyan
   
-  data.target = path.normalize data.target
+  data.targetPath = path.normalize data.targetPath if data.TargetPath
 
-  @_runCommand "untar",[ "-dc", data.source ],"tar::unarchive-complete",data    
+  if data.targetPath
+    @_runCommand "tar",[ "-xf", data.source, "-C",data.targetPath ],"tar::unarchive-complete",data    
+  else
+    @_runCommand "tar",[ "-xf", data.source ],"tar::unarchive-complete",data    
   

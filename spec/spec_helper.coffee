@@ -10,7 +10,7 @@ module.exports =
   sourceFile1 : "afile.txt"
   sourceFile2 : "anotherfile.txt"
   
-  compressedFileSingle : "afile.txt.tar"
+  compressedFileSingle : "afile.tar"
   compressedFileMultiple : "files.tar"
     
   setup: (cb) ->

@@ -24,14 +24,14 @@ option is included for debugging and testing purposes, in general you will want 
 
 tar::archive [in]
 
-	source: the source file name. Required. This is the file that will be compressed.
+	source: an array of source file names. Required. Those files will be archived.
 	target: the target file name. Required.
 
 tar::unarchive [in]
 
-	source: the source file name. Required. This is the file that will be uncompressed.
-	target: the target file name. Required.
-
+	source: the source file name. Required. This is the file that will be unarchived.
+	targetPath: The optional target path (-C tar option). Optional.
+	
 tar::error [out]
 
 	code: code
