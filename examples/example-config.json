@@ -1,0 +1,15 @@
+{
+  "archive" : [
+    {
+      "source" : ["./afile.txt"],
+      "target" : "compressed.tar"
+    }  
+  ],
+  
+  "unarchive" : [
+    {
+      "source" : "./compressed.tar",
+      "target": ""
+    }  
+  ]
+}

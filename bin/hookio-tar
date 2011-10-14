@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+
+var Tar = require('../lib/index').Tar;
+
+var hook = new Tar({
+  name: 'tar'
+});
+
+hook.start();

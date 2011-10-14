@@ -1,0 +1,84 @@
+{
+  "author": "Martin Wawrusch <martin@wawrusch.com> (http://martinatsunset.com)",
+  "name": "hook.io-tar",
+  "description": "A hook to tar and untar. Operates synchronously for now.",
+  "version": "0.0.1",
+  "main" : "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/scottyapp/hook.io-tar.git"
+  },
+  "bin" : {
+    "hookio-tar" : "./bin/hookio-tar"
+  },
+  "directories" : {
+    "lib" : "./lib",
+    "test" : "./spec"
+  },
+  "keywords" : [
+    "hook.io","tar","untar","tar","tar-async","untar","archive","unarchive"
+  ],
+  "scripts": {
+    "test": "vows --spec spec/*-spec.coffee",
+    "watch" : "coffee -c -w  -o lib src"
+  },
+  "engines": {
+    "node": ">=0.4.8"
+  },
+  "dependencies": {
+    "colors" : "~ 0.5",
+    "hook.io" : "~ 0.7.7",
+    "pkginfo" : "~ 0.2"    
+  },
+  "devDependencies": {
+    "underscore" : "1.2.x",
+    "async" : "0.1.x",
+    "should" : ">=0.2.1",    
+    "vows" : ">= 0.5.9"
+  },
+  "bugs": { "url": "http://github.com/scottyapp/hook.io-tar/issues" },
+  "licenses": [
+    { "type": "MIT",
+      "url": "http://github.com/scottyapp/hook.io-tar/raw/master/LICENSE"
+    }
+  ],
+  "hook" : {
+    "type" : "Tar",
+    "description" : "Compress and untar files",
+    "images" : [
+        { 
+          "size" : "29x29",
+          "url" : "http://github.com/scottyapp/hook.io-tar/raw/master/assets/tar29x29.png"
+        },
+        { 
+          "size" : "57x57",
+          "url" : "http://github.com/scottyapp/hook.io-tar/raw/master/assets/tar57x57.png"
+        },
+        { 
+          "size" : "114x114",
+          "url" : "http://github.com/scottyapp/hook.io-tar/raw/master/assets/tar114x114.png"
+        }        
+      ],
+    
+    "in" : [{
+        "name" : "tar::archive",
+        "signatures" : []
+      },{
+        "name" : "tar::unarchive",
+        "signatures" : []
+      }
+    ],
+    
+    "out" : [{
+        "name" : "tar::error",
+        "signatures" : []
+      },{
+        "name" : "tar::archive-complete",
+        "signatures" : []
+      },{
+        "name" : "tar::unarchive-complete",
+        "signatures" : []
+      }
+    ]
+  }
+}
