@@ -8,7 +8,7 @@ vows.describe("integration_task")
   .addBatch
     "CLEANUP TEMP":
       topic: () ->
-        specHelper.cleanTmpFiles ['test1.gz','test2.bz2','test3.txt','test4.txt']
+        specHelper.cleanTmpFiles ['test1.tar','test2.tar','afile.txt','anotherfile.txt']
       "THEN IT SHOULD BE CLEAN :)": () ->
         assert.isTrue true        
   .addBatch
@@ -19,26 +19,36 @@ vows.describe("integration_task")
       "THEN IT SHOULD SET UP :)": () ->
         assert.isTrue true
   .addBatch 
-    "WHEN archiving a file": 
+    "WHEN archiving a single file": 
       topic:  () ->
         specHelper.hookMeUp @callback
 
         specHelper.hook.emit "tar::archive",
-          source : specHelper.fixturePath(specHelper.untared)
-          target : specHelper.tmpPath("test1.gz")
-          mode : 'gzip'
+          source : [specHelper.fixturePath(specHelper.sourceFile1)]
+          target : specHelper.tmpPath("test1.tar")
         return
       "THEN it must be complete": (err,event,data) ->
         assert.equal event,"tar::archive-complete" 
   .addBatch 
-    "WHEN unarchiving a file": 
+    "WHEN archiving a two files": 
       topic:  () ->
         specHelper.hookMeUp @callback
+
         specHelper.hook.emit "tar::archive",
-          source : specHelper.fixturePath(specHelper.untared)
-          target : specHelper.tmpPath("test2.bz2")
-          mode : 'bzip2'
+          source : [specHelper.fixturePath(specHelper.sourceFile1),
+                   specHelper.fixturePath(specHelper.sourceFile2)]
+          target : specHelper.tmpPath("test2.tar")
         return
       "THEN it must be complete": (err,event,data) ->
         assert.equal event,"tar::archive-complete" 
+  .addBatch 
+    "WHEN unarchiving a file to a folder": 
+      topic:  () ->
+        specHelper.hookMeUp @callback
+        specHelper.hook.emit "tar::unarchive",
+          source : specHelper.fixturePath(specHelper.compressedFileMultiple)
+          targetPath : specHelper.tmpPath("")
+        return
+      "THEN it must be complete": (err,event,data) ->
+        assert.equal event,"tar::unarchive-complete" 
   .export module

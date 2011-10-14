@@ -1,7 +1,7 @@
 {
   "author": "Martin Wawrusch <martin@wawrusch.com> (http://martinatsunset.com)",
   "name": "hook.io-tar",
-  "description": "A hook to tar and untar. Operates synchronously for now.",
+  "description": "A hook to archive and unarchive with tar. Operates synchronously for now.",
   "version": "0.0.1",
   "main" : "lib/index.js",
   "repository": {

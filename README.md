@@ -1,6 +1,6 @@
 ## About hook.io-tar
 
-A hook to tar and untar. Operates synchronously for now.
+A hook to archive and unarchive with tar. Operates synchronously for now.
 
 NOTE: Pull request making this asynchronous are very welcome as long as they work with huge (2+ gigabyte compressed) files.
 
@@ -46,7 +46,8 @@ tar::archive-complete [out]
 
 tar::unarchive-complete [out]
 
-target : The target file name.
+	source : 
+	targetPath : The target file name.
 
 ### Hook.io Schema support 
 
