@@ -82,6 +82,10 @@ Listened to lots of M.I.A. and Soundgarden while writing this.
 
 ## Release Notes
 
+### 0.0.3
+
+* Ah well. Nothing to report here
+
 ### 0.0.2
 
 * Minor cleanups, including coffee-script beautification
@@ -97,7 +101,7 @@ Listened to lots of M.I.A. and Soundgarden while writing this.
 # Publish new version
 
 * Change version in package.json
-* git tag -a v0.0.2 -m 'version 0.0.2'
+* git tag -a v0.0.3 -m 'version 0.0.3'
 * git push --tags
 * npm publish
 
