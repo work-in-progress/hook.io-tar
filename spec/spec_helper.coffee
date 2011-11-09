@@ -14,6 +14,7 @@ module.exports =
   compressedFileMultiple : "files.tar"
     
   setup: (cb) ->
+    @createTemp()
       
     @hook = new main.Tar(name: 'tar')
     @hook.onAny (data) =>
@@ -27,6 +28,11 @@ module.exports =
     @hook.start()
     cb null,@hook
     
+  createTemp: ->
+    try
+      fs.mkdirSync "#{__dirname}/../tmp/",0777
+    catch ignore
+
   fixturePath: (fileName) ->
     "#{__dirname}/fixtures/#{fileName}"
 
